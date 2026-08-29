@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SiSiLab — Applications indépendantes</title>
+<meta name="description" content="SiSiLab est le nom sous lequel Sylvain Chanuc publie ses applications, depuis le Gers. Aujourd'hui : ADVMAP, pour les motards trail." />
+<meta property="og:title" content="SiSiLab" />
+<meta property="og:description" content="Applications indépendantes, conçues dans le Gers." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://sisilab.app" />
+<meta name="theme-color" content="#0C0D0E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230C0D0E%22%2F%3E%3Cpath%20d%3D%22M13%208%20L8%208%20L8%2024%20L13%2024%22%20fill%3D%22none%22%20stroke%3D%22%237FA6C4%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M19%208%20L24%208%20L24%2024%20L19%2024%22%20fill%3D%22none%22%20stroke%3D%22%237FA6C4%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2215%22%20y%3D%2214.6%22%20width%3D%222.4%22%20height%3D%222.8%22%20rx%3D%221.2%22%20fill%3D%22%23F2F0EC%22%2F%3E%3C%2Fsvg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Exo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* SiSiLab : l'atelier reste neutre, ce sont les applications qui apportent
+     la couleur (ADVMAP amène son orange). D'où un accent volontairement
+     discret, "bleu de plan", et une trame millimétrée en fond. */
+  :root {
+    --bg: #0C0D0E;
+    --surface: #151719;
+    --surface2: #1B1E21;
+    --border: #292D31;
+    --border-soft: #202427;
+    --text: #F2F0EC;
+    --text2: #9A968D;
+    --text3: #6B6E72;
+    --accent: #7FA6C4;
+    --accent-soft: rgba(127,166,196,0.12);
+    --advmap: #FF6A00;
+    --grid: rgba(127,166,196,0.055);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* Trame de plan : discrète, elle donne le registre "atelier" sans bruit. */
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  h1, h2, h3, .display { font-family: 'Exo 2', sans-serif; letter-spacing: -0.02em; }
+  a { color: inherit; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- nav ---------- */
+  nav.top {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 24px;
+    background: rgba(12,13,14,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  nav.top.scrolled { border-bottom-color: var(--border-soft); }
+  .brand {
+    font-family: 'Exo 2'; font-weight: 800; font-size: 1.05rem;
+    letter-spacing: 0.01em; text-decoration: none;
+  }
+  .brand .lab { color: var(--accent); }
+  nav.top .links { display: flex; gap: 26px; font-size: 0.88rem; font-weight: 600; color: var(--text2); }
+  nav.top .links a { text-decoration: none; transition: color 0.15s ease; }
+  nav.top .links a:hover { color: var(--text); }
+  @media (max-width: 560px) { nav.top .links { gap: 18px; font-size: 0.82rem; } }
+
+  /* ---------- hero ---------- */
+  header.hero { padding: 104px 24px 72px; }
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Exo 2'; font-weight: 700; font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  h1.hero-title {
+    font-size: clamp(2.6rem, 7vw, 4.2rem);
+    font-weight: 800; margin: 0 0 20px; line-height: 1.02;
+    text-wrap: balance;
+  }
+  .hero-sub {
+    font-size: 1.06rem; color: var(--text2); max-width: 46ch; margin: 0 0 30px;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 10px 26px;
+    font-size: 0.83rem; color: var(--text3); font-weight: 500;
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-meta .tick { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+  /* ---------- sections ---------- */
+  section { padding: 56px 24px; }
+  .section-label {
+    font-family: 'Exo 2'; font-weight: 700; font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3);
+    padding-bottom: 14px; margin-bottom: 28px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  /* ---------- carte application ---------- */
+  .app-card {
+    display: block; text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .app-card:hover { border-color: rgba(255,106,0,0.42); transform: translateY(-2px); }
+  .app-head { display: flex; align-items: center; gap: 15px; margin-bottom: 8px; }
+  .app-mark {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: #0B0C0D; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .app-mark img { width: 24px; height: 24px; object-fit: contain; display: block; }
+  .app-name { font-family: 'Exo 2'; font-weight: 800; font-size: 1.3rem; }
+  .app-name em { font-style: normal; color: var(--advmap); }
+  .app-tag { font-size: 0.9rem; color: var(--text2); }
+  .app-desc { font-size: 0.94rem; color: var(--text2); margin: 16px 0 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip {
+    font-size: 0.74rem; font-weight: 600; color: var(--text2);
+    background: var(--surface2); border: 1px solid var(--border);
+    padding: 4px 11px; border-radius: 999px;
+  }
+  .app-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px; flex-wrap: wrap;
+    margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border-soft);
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; font-weight: 600; color: var(--advmap);
+  }
+  .status .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--advmap);
+    animation: pulse 1.9s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .visit { font-size: 0.86rem; font-weight: 700; color: var(--text); }
+
+  .next-note {
+    margin-top: 16px; padding: 20px 22px;
+    border: 1px dashed var(--border); border-radius: 16px;
+    font-size: 0.9rem; color: var(--text3);
+  }
+
+  /* ---------- qui ---------- */
+  .about p { font-size: 1rem; color: var(--text2); max-width: 58ch; margin: 0 0 14px; }
+  .about strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- contact ---------- */
+  .contact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 26px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 18px; flex-wrap: wrap;
+  }
+  .contact-card .label { font-size: 0.78rem; color: var(--text3); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .contact-card a.mail {
+    font-family: 'Exo 2'; font-weight: 700; font-size: 1.12rem;
+    color: var(--accent); text-decoration: none; word-break: break-all;
+  }
+  .contact-card a.mail:hover { text-decoration: underline; }
+
+  /* ---------- legal ---------- */
+  .legal { font-size: 0.85rem; color: var(--text3); }
+  .legal dl { display: grid; grid-template-columns: minmax(140px, auto) 1fr; gap: 10px 22px; margin: 0; }
+  .legal dt { color: var(--text2); font-weight: 600; }
+  .legal dd { margin: 0; }
+  .legal a { color: var(--accent); }
+  @media (max-width: 560px) { .legal dl { grid-template-columns: 1fr; gap: 3px 0; } .legal dd { margin-bottom: 12px; } }
+  .todo {
+    background: var(--accent-soft); border: 1px solid rgba(127,166,196,0.28);
+    color: var(--accent); border-radius: 6px; padding: 1px 7px;
+    font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+  }
+
+  footer {
+    padding: 40px 24px 56px; text-align: center;
+    color: var(--text3); font-size: 0.82rem;
+    border-top: 1px solid var(--border-soft); margin-top: 40px;
+  }
+  footer a { color: var(--text2); }
+</style>
+</head>
+<body>
+
+<nav class="top" id="nav">
+  <a class="brand" href="#top">SiSi<span class="lab">Lab</span></a>
+  <div class="links">
+    <a href="#applications">Applications</a>
+    <a href="#contact">Contact</a>
+    <a href="#mentions">Mentions légales</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Atelier indépendant</span>
+    <h1 class="hero-title">Des applications faites<br>pour être utilisées dehors.</h1>
+    <p class="hero-sub">
+      SiSiLab est le nom sous lequel je publie mes applications. Une personne,
+      pas de bureau d'études : chaque app naît d'un besoin que j'ai eu moi-même,
+      et se construit en la testant sur le terrain.
+    </p>
+    <div class="hero-meta">
+      <span><i class="tick"></i> Auch, Gers</span>
+      <span><i class="tick"></i> Une application en chantier</span>
+      <span><i class="tick"></i> Interface en 5 langues</span>
+    </div>
+  </div>
+</header>
+
+<section id="applications">
+  <div class="wrap">
+    <div class="section-label">Applications</div>
+
+    <a class="app-card" href="https://advmap.sisilab.app">
+      <div class="app-head">
+        <span class="app-mark"><img src="data:image/png;base64,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" alt="" /></span>
+        <span>
+          <span class="app-name">ADV<em>MAP</em></span><br>
+          <span class="app-tag">Traces moto &amp; trail</span>
+        </span>
+      </div>
+      <p class="app-desc">
+        Publier et découvrir des traces GPX, préparer une sortie sur une carte
+        pensée pour le terrain, la suivre en navigation même sans réseau, et
+        organiser des sorties à plusieurs.
+      </p>
+      <div class="chips">
+        <span class="chip">Traces GPX</span>
+        <span class="chip">Navigation</span>
+        <span class="chip">Cartes hors-ligne</span>
+        <span class="chip">Événements</span>
+        <span class="chip">React Native</span>
+      </div>
+      <div class="app-foot">
+        <span class="status"><i class="dot"></i> En développement actif</span>
+        <span class="visit">advmap.sisilab.app →</span>
+      </div>
+    </a>
+
+    <p class="next-note">
+      D'autres projets suivront. Rien d'autre à annoncer pour le moment&nbsp;—
+      cette page sera mise à jour le jour venu.
+    </p>
+  </div>
+</section>
+
+<section class="about" id="apropos">
+  <div class="wrap">
+    <div class="section-label">Qui est derrière</div>
+    <p>
+      <strong>Sylvain Chanuc</strong>, développeur indépendant basé à Auch, dans
+      le Gers. SiSiLab est le nom sous lequel je publie mes applications.
+    </p>
+    <p>
+      ADVMAP est développée en React&nbsp;Native (Expo) avec Supabase côté
+      serveur, pour iOS et Android. Elle n'est pas encore publiée sur les
+      stores&nbsp;: elle se construit et se teste sur le terrain.
+    </p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-label">Contact</div>
+    <div class="contact-card">
+      <span>
+        <span class="label">Écrire à SiSiLab</span><br>
+        <a class="mail" href="mailto:advmap@sisilab.app">advmap@sisilab.app</a>
+      </span>
+      <span style="color:var(--text3); font-size:0.85rem;">Question, bug, proposition&nbsp;: tout arrive au même endroit.</span>
+    </div>
+  </div>
+</section>
+
+<section id="mentions">
+  <div class="wrap">
+    <div class="section-label">Mentions légales</div>
+    <div class="legal">
+      <dl>
+        <dt>Éditeur du site</dt>
+        <dd>Sylvain Chanuc — SiSiLab</dd>
+
+        <dt>Statut &amp; SIRET</dt>
+        <dd><span class="todo">à compléter</span> — n° SIRET et forme juridique</dd>
+
+        <dt>Adresse</dt>
+        <dd>32000 Auch, France <span class="todo">à compléter</span></dd>
+
+        <dt>Contact</dt>
+        <dd><a href="mailto:advmap@sisilab.app">advmap@sisilab.app</a></dd>
+
+        <dt>Directeur de la publication</dt>
+        <dd>Sylvain Chanuc</dd>
+
+        <dt>Hébergement du site</dt>
+        <dd>GitHub Pages — GitHub,&nbsp;Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis</dd>
+
+        <dt>Données des applications</dt>
+        <dd>Supabase — voir la <a href="https://advmap.sisilab.app/privacy.html">politique de confidentialité d'ADVMAP</a></dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  SiSiLab · Auch, Gers &nbsp;·&nbsp;
+  <a href="https://advmap.sisilab.app">ADVMAP</a> ·
+  <a href="https://advmap.sisilab.app/privacy.html">Confidentialité</a><br>
+  © 2026 SiSiLab. Tous droits réservés.
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 8);
+  });
+</script>
+</body>
+</html>

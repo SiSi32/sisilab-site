@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SiSiLab — Applications indépendantes</title>
+<title>SiSiLab — Atelier indépendant d'applications</title>
 <meta name="description" content="SiSiLab est le nom sous lequel Sylvain Chanuc publie ses applications, depuis le Gers. Aujourd'hui : ADVMAP, pour les motards trail, disponible sur l'App Store." />
 <meta property="og:title" content="SiSiLab" />
-<meta property="og:description" content="Applications indépendantes, conçues dans le Gers." />
+<meta property="og:description" content="Atelier indépendant d'applications, dans le Gers." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.sisilab.app" />
 <meta name="theme-color" content="#0C0D0E" />
@@ -128,6 +128,7 @@
   .app-mark img { width: 100%; height: 100%; display: block; }
   .app-name { font-family: 'Exo 2'; font-weight: 800; font-size: 1.3rem; }
   .app-name em { font-style: normal; color: var(--advmap); }
+  .app-wordmark { display: inline-block; height: clamp(13px, 3.6vw, 17px); width: auto; max-width: 100%; margin-bottom: 5px; }
   .app-tag { font-size: 0.9rem; color: var(--text2); }
   .app-desc { font-size: 0.94rem; color: var(--text2); margin: 16px 0 0; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
@@ -219,7 +220,7 @@
 <nav class="top" id="nav">
   <a class="brand" href="#top">SiSi<span class="lab">Lab</span></a>
   <div class="links">
-    <a href="#applications">Applications</a>
+    <a href="#applications">ADVMAP</a>
     <a href="#contact">Contact</a>
     <a href="#mentions">Mentions légales</a>
   </div>
@@ -228,11 +229,12 @@
 <header class="hero" id="top">
   <div class="wrap">
     <span class="eyebrow">Atelier indépendant</span>
-    <h1 class="hero-title">Des applications faites<br>pour être utilisées dehors.</h1>
+    <h1 class="hero-title">Une application faite<br>pour être utilisée dehors.</h1>
     <p class="hero-sub">
-      SiSiLab est le nom sous lequel je publie mes applications. Une personne,
-      pas de bureau d'études : chaque app naît d'un besoin que j'ai eu moi-même,
-      et se construit en la testant sur le terrain.
+      SiSiLab est le nom sous lequel je publie mes applications. Pour l'instant,
+      il y en a une&nbsp;: ADVMAP. Une personne, pas de bureau d'études&nbsp;: elle est
+      née d'un besoin que j'ai eu moi-même, et se construit en la testant sur
+      le terrain.
     </p>
     <div class="hero-meta">
       <span><i class="tick"></i> Auch, Gers</span>
@@ -244,14 +246,14 @@
 
 <section id="applications">
   <div class="wrap">
-    <div class="section-label">Applications</div>
+    <div class="section-label">L'application</div>
 
     <div class="app-card">
       <div>
         <div class="app-head">
           <span class="app-mark"><img src="assets/advmap-icon.png" width="92" height="92" alt="" /></span>
           <span>
-            <span class="app-name">ADV<em>MAP</em></span><br>
+            <img class="app-wordmark" src="assets/advmap-wordmark.svg" width="1736" height="160" alt="ADVMAP" /><br>
             <span class="app-tag">Traces moto &amp; trail</span>
           </span>
         </div>
@@ -286,7 +288,7 @@
         </div>
       </div>
     </div>
-    <p class="credits">Capture de l'app. Données cartographiques © les <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">contributeurs d'OpenStreetMap</a> (ODbL). Relief et courbes de niveau : Mapzen Terrain Tiles (USGS, Copernicus et autres sources, voir les <a href="https://advmap.sisilab.app/legal-notice.html">mentions légales d'ADVMAP</a>).</p>
+    <p class="credits">Capture de l'app. Données cartographiques © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> © les <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">contributeurs d'OpenStreetMap</a> (ODbL). Relief et courbes de niveau : Mapzen Terrain Tiles (USGS, Copernicus et autres sources, voir les <a href="https://advmap.sisilab.app/legal-notice.html">mentions légales d'ADVMAP</a>).</p>
 
     <p class="next-note">
       D'autres projets suivront. Rien d'autre à annoncer pour le moment&nbsp;—

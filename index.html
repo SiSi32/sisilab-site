@@ -4,17 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SiSiLab — Applications indépendantes</title>
-<meta name="description" content="SiSiLab est le nom sous lequel Sylvain Chanuc publie ses applications, depuis le Gers. Aujourd'hui : ADVMAP, pour les motards trail." />
+<meta name="description" content="SiSiLab est le nom sous lequel Sylvain Chanuc publie ses applications, depuis le Gers. Aujourd'hui : ADVMAP, pour les motards trail, disponible sur l'App Store." />
 <meta property="og:title" content="SiSiLab" />
 <meta property="og:description" content="Applications indépendantes, conçues dans le Gers." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://sisilab.app" />
+<meta property="og:url" content="https://www.sisilab.app" />
 <meta name="theme-color" content="#0C0D0E" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230C0D0E%22%2F%3E%3Cpath%20d%3D%22M13%208%20L8%208%20L8%2024%20L13%2024%22%20fill%3D%22none%22%20stroke%3D%22%237FA6C4%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M19%208%20L24%208%20L24%2024%20L19%2024%22%20fill%3D%22none%22%20stroke%3D%22%237FA6C4%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2215%22%20y%3D%2214.6%22%20width%3D%222.4%22%20height%3D%222.8%22%20rx%3D%221.2%22%20fill%3D%22%23F2F0EC%22%2F%3E%3C%2Fsvg%3E" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Exo+2:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* Polices servies par le site lui-même : aucun appel à un tiers. */
+  @font-face { font-family: 'Barlow'; font-style: normal; font-weight: 400; font-display: swap; src: url('assets/fonts/barlow-400.woff2') format('woff2'); }
+  @font-face { font-family: 'Barlow'; font-style: normal; font-weight: 500; font-display: swap; src: url('assets/fonts/barlow-500.woff2') format('woff2'); }
+  @font-face { font-family: 'Barlow'; font-style: normal; font-weight: 600; font-display: swap; src: url('assets/fonts/barlow-600.woff2') format('woff2'); }
+  @font-face { font-family: 'Barlow'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/barlow-700.woff2') format('woff2'); }
+  @font-face { font-family: 'Exo 2'; font-style: normal; font-weight: 600 800; font-display: swap; src: url('assets/fonts/exo2.woff2') format('woff2'); }
   /* SiSiLab : l'atelier reste neutre, ce sont les applications qui apportent
      la couleur (ADVMAP amène son orange). D'où un accent volontairement
      discret, "bleu de plan", et une trame millimétrée en fond. */
@@ -108,21 +111,21 @@
 
   /* ---------- carte application ---------- */
   .app-card {
-    display: block; text-decoration: none;
+    display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 30px;
-    transition: border-color 0.2s ease, transform 0.2s ease;
   }
-  .app-card:hover { border-color: rgba(255,106,0,0.42); transform: translateY(-2px); }
+  @media (max-width: 700px) { .app-card { grid-template-columns: 1fr; } }
   .app-head { display: flex; align-items: center; gap: 15px; margin-bottom: 8px; }
   .app-mark {
     width: 46px; height: 46px; border-radius: 12px;
     background: #0B0C0D; border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .app-mark img { width: 24px; height: 24px; object-fit: contain; display: block; }
+  .app-mark { overflow: hidden; }
+  .app-mark img { width: 100%; height: 100%; display: block; }
   .app-name { font-family: 'Exo 2'; font-weight: 800; font-size: 1.3rem; }
   .app-name em { font-style: normal; color: var(--advmap); }
   .app-tag { font-size: 0.9rem; color: var(--text2); }
@@ -147,7 +150,24 @@
     animation: pulse 1.9s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
-  .visit { font-size: 0.86rem; font-weight: 700; color: var(--text); }
+  .visit { font-size: 0.86rem; font-weight: 700; color: var(--text); text-decoration: none; }
+  .visit:hover { color: var(--advmap); }
+  .app-get { display: flex; align-items: center; gap: 6px 14px; flex-wrap: wrap; margin-top: 20px; }
+  /* Badge officiel d'Apple, non modifié ; marge = l'espace libre qu'Apple demande autour. */
+  .store-badge { display: block; padding: 12px; margin: -12px 0 -12px -12px; border-radius: 12px; }
+  .store-badge img { display: block; height: 48px; width: auto; }
+  .app-where { font-size: 0.82rem; color: var(--text3); max-width: 30ch; }
+  .app-shot { justify-self: center; }
+  .phone {
+    width: 196px; background: #101114; border: 5px solid #26282c; border-radius: 32px;
+    overflow: hidden; position: relative;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+  .phone img { display: block; width: 100%; height: auto; }
+  .phone::before { content: ""; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); width: 54px; height: 15px; border-radius: 10px; background: #000; z-index: 1; }
+  .credits { margin: 14px 0 0; font-size: 0.74rem; line-height: 1.5; color: var(--text3); }
+  .credits a { color: inherit; }
+  footer .marks { max-width: 560px; margin: 12px auto 0; font-size: 0.72rem; line-height: 1.5; }
 
   .next-note {
     margin-top: 16px; padding: 20px 22px;
@@ -216,7 +236,7 @@
     </p>
     <div class="hero-meta">
       <span><i class="tick"></i> Auch, Gers</span>
-      <span><i class="tick"></i> Une application en chantier</span>
+      <span><i class="tick"></i> ADVMAP est sortie le 23 novembre 2026</span>
       <span><i class="tick"></i> Interface en 5 langues</span>
     </div>
   </div>
@@ -226,31 +246,47 @@
   <div class="wrap">
     <div class="section-label">Applications</div>
 
-    <a class="app-card" href="https://advmap.sisilab.app">
-      <div class="app-head">
-        <span class="app-mark"><img src="data:image/png;base64,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" alt="" /></span>
-        <span>
-          <span class="app-name">ADV<em>MAP</em></span><br>
-          <span class="app-tag">Traces moto &amp; trail</span>
-        </span>
+    <div class="app-card">
+      <div>
+        <div class="app-head">
+          <span class="app-mark"><img src="assets/advmap-icon.png" width="92" height="92" alt="" /></span>
+          <span>
+            <span class="app-name">ADV<em>MAP</em></span><br>
+            <span class="app-tag">Traces moto &amp; trail</span>
+          </span>
+        </div>
+        <p class="app-desc">
+          L'application des motards trail et des explorateurs de chemins&nbsp;:
+          trace ton itinéraire ou importe un GPX, suis-le avec les annonces
+          vocales, garde les cartes pour rouler sans réseau avec Premium, et
+          partage tes sorties avec la communauté.
+        </p>
+        <div class="chips">
+          <span class="chip">Traces GPX</span>
+          <span class="chip">Éditeur de traces</span>
+          <span class="chip">Suivi de trace</span>
+          <span class="chip">Groupe de route</span>
+          <span class="chip">Cartes hors ligne</span>
+          <span class="chip">5 langues</span>
+        </div>
+        <div class="app-get">
+          <a class="store-badge" id="store-ios" href="https://apps.apple.com/fr/app/advmap/id6806682833">
+            <img src="assets/badges/app-store-fr.svg" alt="Télécharger dans l'App Store" />
+          </a>
+          <span class="app-where">Sur iPhone et iPad, dans l'Union européenne, en Suisse, en Norvège et en Islande. Bientôt sur Android.</span>
+        </div>
+        <div class="app-foot">
+          <span class="status"><i class="dot"></i> Disponible sur l'App Store</span>
+          <a class="visit" href="https://advmap.sisilab.app">advmap.sisilab.app →</a>
+        </div>
       </div>
-      <p class="app-desc">
-        Publier et découvrir des traces GPX, préparer une sortie sur une carte
-        pensée pour le terrain, la suivre en navigation même sans réseau, et
-        organiser des sorties à plusieurs.
-      </p>
-      <div class="chips">
-        <span class="chip">Traces GPX</span>
-        <span class="chip">Navigation</span>
-        <span class="chip">Cartes hors-ligne</span>
-        <span class="chip">Événements</span>
-        <span class="chip">React Native</span>
+      <div class="app-shot">
+        <div class="phone">
+          <img src="assets/advmap-carte.webp" width="520" height="1129" alt="Capture de l'app ADVMAP : la carte, avec une trace de la communauté et sa fiche (distance, dénivelé, part de piste)." />
+        </div>
       </div>
-      <div class="app-foot">
-        <span class="status"><i class="dot"></i> En développement actif</span>
-        <span class="visit">advmap.sisilab.app →</span>
-      </div>
-    </a>
+    </div>
+    <p class="credits">Capture de l'app. Données cartographiques © les <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">contributeurs d'OpenStreetMap</a> (ODbL). Relief et courbes de niveau : Mapzen Terrain Tiles (USGS, Copernicus et autres sources, voir les <a href="https://advmap.sisilab.app/legal-notice.html">mentions légales d'ADVMAP</a>).</p>
 
     <p class="next-note">
       D'autres projets suivront. Rien d'autre à annoncer pour le moment&nbsp;—
@@ -268,8 +304,9 @@
     </p>
     <p>
       ADVMAP est développée en React&nbsp;Native (Expo) avec Supabase côté
-      serveur, pour iOS et Android. Elle n'est pas encore publiée sur les
-      stores&nbsp;: elle se construit et se teste sur le terrain.
+      serveur. Elle est sortie sur l'App Store le 23&nbsp;novembre&nbsp;2026,
+      pour iPhone et iPad&nbsp;; la version Android arrive. Elle continue de se
+      construire et de se tester sur le terrain.
     </p>
   </div>
 </section>
@@ -298,6 +335,9 @@
         <dt>Adresse</dt>
         <dd>8 rue Paul Gauzy, 32000 Auch, France</dd>
 
+        <dt>Téléphone</dt>
+        <dd>+33&nbsp;6&nbsp;52&nbsp;50&nbsp;23&nbsp;07</dd>
+
         <dt>SIRET</dt>
         <dd>531&nbsp;101&nbsp;566&nbsp;00036 — SIREN 531&nbsp;101&nbsp;566</dd>
 
@@ -305,7 +345,7 @@
         <dd>Programmation informatique — code APE 62.01Z</dd>
 
         <dt>TVA</dt>
-        <dd>TVA non applicable, article 293&nbsp;B du CGI</dd>
+        <dd>TVA non applicable, article 293&nbsp;B du CGI. Numéro de TVA intracommunautaire&nbsp;: FR0H531101566</dd>
 
         <dt>Contact</dt>
         <dd><a href="mailto:contact@sisilab.app">contact@sisilab.app</a></dd>
@@ -316,8 +356,11 @@
         <dt>Hébergement du site</dt>
         <dd>GitHub Pages — GitHub,&nbsp;Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis</dd>
 
-        <dt>Données des applications</dt>
-        <dd>Supabase — voir la <a href="https://advmap.sisilab.app/privacy.html">politique de confidentialité d'ADVMAP</a></dd>
+        <dt>Ce site</dt>
+        <dd>Aucun cookie, aucune mesure d'audience, aucun compte. Pour afficher les pages, notre hébergeur GitHub reçoit l'adresse IP des visiteurs&nbsp;; nous ne gardons aucune donnée.</dd>
+
+        <dt>Application ADVMAP</dt>
+        <dd>Voir ses <a href="https://advmap.sisilab.app/legal-notice.html">mentions légales</a>, ses <a href="https://advmap.sisilab.app/terms.html">conditions générales</a> et sa <a href="https://advmap.sisilab.app/privacy.html">politique de confidentialité</a></dd>
       </dl>
     </div>
   </div>
@@ -326,8 +369,10 @@
 <footer>
   SiSiLab · Auch, Gers &nbsp;·&nbsp;
   <a href="https://advmap.sisilab.app">ADVMAP</a> ·
-  <a href="https://advmap.sisilab.app/privacy.html">Confidentialité</a><br>
+  <a href="https://advmap.sisilab.app/privacy.html">Confidentialité</a> ·
+  <a href="https://advmap.sisilab.app/download">Télécharger ADVMAP</a><br>
   © 2026 SiSiLab. Tous droits réservés.
+  <p class="marks">Apple, le logo Apple, iPhone et iPad sont des marques d'Apple Inc., déposées aux États-Unis et dans d'autres pays. App Store est une marque de service d'Apple Inc.</p>
 </footer>
 
 <script>
@@ -335,6 +380,18 @@
   window.addEventListener('scroll', function () {
     nav.classList.toggle('scrolled', window.scrollY > 8);
   });
+
+  // Lien App Store : l'app n'est pas vendue partout, on vise le pays du visiteur s'il est dans la liste, sinon la France.
+  (function () {
+    var countries = ['at','be','bg','hr','cy','cz','dk','ee','fi','fr','de','gr','hu','ie','it','lv','lt','lu','mt','nl','pl','pt','ro','sk','si','es','se','no','is','ch'];
+    var tags = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'fr']);
+    var country = 'fr';
+    for (var i = 0; i < tags.length; i++) {
+      var region = String(tags[i]).split('-')[1];
+      if (region && countries.indexOf(region.toLowerCase()) !== -1) { country = region.toLowerCase(); break; }
+    }
+    document.getElementById('store-ios').href = 'https://apps.apple.com/' + country + '/app/advmap/id6806682833';
+  })();
 </script>
 </body>
 </html>
